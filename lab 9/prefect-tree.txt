@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct treenode{
+       int data;
+       struct treenode *left;
+       struct treenode *right;
+};
+typedef struct treenode TREENODE;
+typedef TREENODE *TREE;
+
+
+void insert_node(TREE* t,int data,int Count[])
+{
+    if(*t==NULL)
+    {
+        TREE newnode = (TREE)malloc(sizeof(TREENODE));
+        newnode->data = data;
+        newnode->left = NULL;
+        newnode->right = NULL;
+        *t = newnode;
+    }else if(data < (*t)->data)
+     {    
+          Count[0]++;
+          insert_node (&(*t)->left,data,Count);              
+     }
+     else if(data > (*t)->data)
+     {          
+          Count[1]++;
+          insert_node (&(*t)->right,data,Count);              
+     }
+}
+
+int is_perfect_tree(int Count[])
+{
+    if(Count[0]==Count[1])
+       return 1;
+    else
+       return 0;
+}
+
+int main(){
+   TREE t = NULL;
+   int i = 0, tmp,count[2]={0,0};
+   do{
+      printf("N%02d: ", i + 1);
+      scanf(" %d", &tmp);
+      if(tmp>0)
+          insert_node(&t,tmp,count);
+      i++;
+   }while(tmp > 0);
+
+    printf(" = %s\n", is_perfect_tree(count) ? "Yes" : "No");
+    exit(EXIT_SUCCESS);
+}

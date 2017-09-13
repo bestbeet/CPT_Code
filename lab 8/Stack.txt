@@ -1,0 +1,74 @@
+#includestdio.h
+#includestdlib.h use malloc
+struct node{ stack node
+       int data;
+       struct node next;
+};
+typedef struct node NODE;
+struct stack{ stack head
+       int count;
+       NODE top;
+};
+typedef struct stack STK;
+STK createstack()  return pointer to STK head
+{
+     create stack head
+     STK head = (STK)malloc(sizeof(STK));
+     head-count = 0;
+     head-top = NULL;
+     
+     return head;
+}
+void push(STK head,int data)
+{
+     create new node
+     NODE newnode = (NODE)malloc(sizeof(NODE));
+     newnode-data = data;
+     newnode-next = NULL;
+     
+     insert into stack
+     newnode-next = head-top;
+     head-top = newnode;
+     head-count++;
+}
+int pop(STK head){
+	int data;
+	if (head-count == 0)
+		return -1;
+	else{
+		NODE cure;
+		cure = head-top;
+		data = cure-data;
+		head-top = head-top-next;
+		head-count--;
+		free(cure);
+		return data;
+	}
+}
+int main()
+{
+    int data,fragment,result,i;
+    STK head = createstack();
+    
+    do{
+        scanf(%d,&data);
+        if(data =0)
+             push(head,data);
+    }while(data =0);
+    while ((i = pop(head)) = 0){
+    	printf(%d ,i);
+	}
+	
+	scanf(%d,&data);
+	result = data;
+	while(result != 0){
+		fragment = result%2;
+		push(head,fragment);
+		result = result2;
+	}
+	while ((i = pop(head)) = 0){
+    	printf(%d,i);
+	}
+    
+	return 0;
+}

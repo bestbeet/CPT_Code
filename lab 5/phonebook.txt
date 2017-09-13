@@ -1,0 +1,5 @@
+NAME            SURNAME           PHONE          BIRTHDAY
+---------------------------------------------------------
+Nattawat       	Thong-aram     	0896541254     	6-11-1995
+Kazura         	Kotaro         	0899456612     	12-5-1989
+Ginta          	Sakata         	0905841559     	11-3-1987

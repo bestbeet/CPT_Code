@@ -1,0 +1,170 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct treenode{
+
+            struct treenode *leftptr;
+
+            int data;
+
+            struct treenode *rightptr;
+
+            };
+
+typedef struct treenode TREENODE;
+typedef TREENODE *TREE;
+
+TREE mkEmpty(void)
+{
+    return NULL;
+}
+
+int isEmptyTree(TREE t)
+{
+    return t == NULL;
+}
+
+TREE mkTree(int x,TREE leftT, TREE rightT) {
+
+            TREE t;
+
+            t = malloc(sizeof(TREENODE));
+
+            t->data = x;
+
+            t->leftptr = leftT;
+
+            t->rightptr = rightT;
+
+            return t;
+
+}
+
+void insert_node(TREE *tp, int value) {
+
+            if (*tp == NULL) {
+
+                        *tp = malloc(sizeof(TREENODE));
+
+                        (*tp)->data = value;
+
+                        (*tp)->leftptr = NULL;
+
+                        (*tp)->rightptr = NULL;
+
+            }else if (value < (*tp)->data )
+
+                        insert_node(&((*tp)->leftptr), value);
+
+            else if (value > (*tp)->data )
+
+                        insert_node(&((*tp)->rightptr), value);
+
+            else
+
+                        printf("duplicate node\n");
+
+}
+
+int tree_height(TREE t)
+{
+    if( t == NULL )
+    {
+        return 0;
+    }
+    else
+    {
+        return 1+max(tree_height(t->leftptr),tree_height(t->rightptr));
+    }
+}
+int max(int a, int b)
+{
+    if( a >= b)
+        return a;
+    else
+        return b;
+}
+
+void print_in_order(TREE t)
+{
+    if( t != NULL )
+    {
+        print_in_order(t->leftptr);
+        printf("%d ",t->data);
+        print_in_order(t->rightptr);
+    }
+}
+
+void print_pre_order(TREE t)
+{
+     if( t != NULL )
+    {
+        printf("%d ",t->data);
+        print_pre_order(t->leftptr);
+        print_pre_order(t->rightptr);
+    }
+}
+
+void print_post_order(TREE t)
+{
+    if( t != NULL )
+    {
+        print_post_order(t->leftptr);
+        print_post_order(t->rightptr);
+        printf("%d ",t->data);
+    }
+
+}
+
+int total_nodes(TREE t){
+     if( t == NULL )
+    {
+        return 0;
+    }
+    else
+    {
+        return 1+total_nodes(t->leftptr)+total_nodes(t->rightptr);
+    }
+}
+int leaf_nodes(TREE t)
+{
+    /*if( t != NULL )
+    {
+        if( t->leftptr != NULL && t->rightptr != NULL)
+            return ((leaf_nodes(t->leftptr)) + (leaf_nodes(t->rightptr)));
+    }
+    else
+        return 1;*/
+    if(t==NULL){
+        return 0;
+    }else if (t->leftptr == NULL && t->rightptr == NULL){
+        return 1;
+    }else{
+        return leaf_nodes(t->leftptr) + leaf_nodes(t->rightptr);
+    }
+}
+
+
+int main(){
+
+   TREE t = NULL;
+
+   int tmp;
+
+   do{
+      scanf(" %d", &tmp);
+      if(tmp != 0)
+        insert_node(&t,tmp);
+   }while(tmp > 0);
+    printf("Height = %d\n",tree_height(t));
+    printf("In-order = ");
+    print_in_order(t);
+    printf("\nPre-order = ");
+    print_pre_order(t);
+    printf("\nPost-order = ");
+    print_post_order(t);
+    printf("\nTotal-nodes = %d\n",total_nodes(t));
+    printf("Leaf-nodes = %d\n",leaf_nodes(t));
+
+  return 0;
+
+}
